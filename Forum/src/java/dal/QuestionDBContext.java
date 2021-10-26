@@ -18,6 +18,7 @@ import model.Post;
  */
 public class QuestionDBContext extends DBContext {
 
+    //ask question
     public void insert(Post p) {
         try {
             String sql = "INSERT INTO [Post]\n"
