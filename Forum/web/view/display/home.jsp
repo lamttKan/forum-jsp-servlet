@@ -3,16 +3,16 @@
     Created on : Oct 25, 2021, 9:53:02 PM
     Author     : ADMIN
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <title>Pallas</title>
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="css/style.css" rel="stylesheet" type="text/css">
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="../css/style.css" rel="stylesheet" type="text/css">
+    <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -28,8 +28,8 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav"> </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="ask_question.html">Ask Question</a></li>
+                        <li><a href="list">Home</a></li>
+                        <li><a href="ask">Ask Question</a></li>
                         <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">Search<span class="caret"></span></a>
                             <ul class="dropdown-menu animated zoomIn">
@@ -91,66 +91,33 @@
                         <input id="tab4" type="radio" name="tabs">
                         <label for="tab4">No Answer</label>
                         <input id="tab5" type="radio" name="tabs">
-                        <label for="tab5">Recent Post</label>
+                        <label for="tab5">Your Post</label>
 
 
 
                         <section id="content1">
                             <!--Recent Question Content Section -->
-                            <div class="question-type2033">
+                            <c:forEach items="${requestScope.posts}" var="p">
+                                 <div class="question-type2033">
                                 <div class="row">
-                                    <div class="col-md-1">
-                                        <div class="left-user12923 left-user12923-repeat">
-                                            <a href="#"><img src="image/images.png" alt="image"> </a> <a href="#"><i
-                                                    class="fa fa-check" aria-hidden="true"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-9">
+                                    <div class="col-md-11">
                                         <div class="right-description893">
                                             <div id="que-hedder2983">
-                                                <h3><a href="post-deatils.html" target="_blank">How Did You Hear About
-                                                        This Position?</a></h3>
-                                            </div>
-                                            <div class="ques-details10018">
-                                                <p>Wouldn’t it be great if you knew exactly what questions a hiring
-                                                    manager would be asking you in your next job interview?
-
-                                                    We can’t read minds, unfortunately, but we’ll give you the next best
-                                                    thing: a list of more than 40 of the most commonly asked interview
-                                                    questions, along with advice for answering them all.
-
-                                                    While we don’t recommend having a canned response for every
-                                                    interview question (in fact, please don’t), we do recommend spending
-                                                    some time getting comfortable with what you might be asked, what
-                                                    hiring managers are really looking for in your responses, and what
-                                                    it takes to show that you’re the right person for the job.</p>
+                                                <h3><a href="post-details.html" target="_blank">${p.title}</a></h3>
                                             </div>
                                             <hr>
-                                            <div class="ques-icon-info3293"> <a href="#"><i class="fa fa-star"
-                                                        aria-hidden="true"> 5 </i> </a> <a href="#"><i
-                                                        class="fa fa-folder" aria-hidden="true"> wordpress</i></a> <a
-                                                    href="#"><i class="fa fa-clock-o" aria-hidden="true"> 4 min
-                                                        ago</i></a> <a href="#"><i class="fa fa-question-circle-o"
-                                                        aria-hidden="true"> Question</i></a> <a href="#"><i
-                                                        class="fa fa-bug" aria-hidden="true"> Report</i></a> </div>
+                                            <div class="ques-icon-info3293"> 
+                                                <a href="#"><i class="fa fa-user" aria-hidden="true"> ${p.username}</i></a> 
+                                                <a href="#"><i class="fa fa-clock-o" aria-hidden="true">${p.time_created}</i></a>
+                                                <a href="#"><i class="fa fa-comment" aria-hidden="true"> 5 answer</i></a>
+                                                <a href="#"><i class="fa fa-user-circle-o" aria-hidden="true"> 70 view</i> </a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="ques-type302">
-                                            <a href="#">
-                                                <button type="button" class="q-type238"><i class="fa fa-comment"
-                                                        aria-hidden="true"> 333335 answer</i></button>
-                                            </a>
-                                            <a href="#">
-                                                <button type="button" class="q-type23 button-ques2973"> <i
-                                                        class="fa fa-user-circle-o" aria-hidden="true"> 70 view</i>
-                                                </button>
-                                            </a>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
-                            </div>
-
+                            </div>                   
+                            </c:forEach>                    
                             <nav aria-label="Page navigation">
                                 <ul class="pagination">
                                     <li>
@@ -470,7 +437,7 @@
                 <!--strart col-md-3 (side bar)-->
                 <aside class="col-md-3 sidebar97239">
                     
-                    <div class="categori-part329">
+<!--                    <div class="categori-part329">
                         <h4>Category</h4>
                         <ul>
                             <li><a href="#">web developer</a></li>
@@ -478,69 +445,15 @@
                             <li><a href="#">grapics developer</a></li>
                             <li><a href="#">web developer</a></li>
                         </ul>
-                    </div>
+                    </div>-->
 
-
-                    <!--              highest part-->
-                    <div class="highest-part302">
-                        <h4>Highest Points</h4>
-                        <div class="pints-wrapper">
-                            <div class="left-user3898">
-                                <a href="#"><img src="image/images.png" alt="Image"></a>
-                                <div class="imag-overlay39"> <a href="#"><i class="fa fa-plus"
-                                            aria-hidden="true"></i></a> </div>
-                            </div> <span class="points-details938">
-                                <a href="#">
-                                    <h5>Ahmed Hasan</h5>
-                                </a>
-                                <a href="#" class="designetion439">Pundit</a>
-                                <p>206 points</p>
-                            </span>
-                        </div>
-                        <hr>
-                        <div class="pints-wrapper">
-                            <div class="left-user3898">
-                                <a href="#"><img src="image/images.png" alt="Image"></a>
-                                <div class="imag-overlay39"> <a href="#"><i class="fa fa-plus"
-                                            aria-hidden="true"></i></a> </div>
-                            </div> <span class="points-details938">
-                                <a href="#">
-                                    <h5>Ahmed Hasan</h5>
-                                </a>
-                                <a href="#" class="designetion439">Pundit</a>
-                                <p>206 points</p>
-                            </span>
-                        </div>
-
-                        <hr>
-                        <div class="pints-wrapper">
-                            <div class="left-user3898">
-                                <a href="#"><img src="image/images.png" alt="Image"></a>
-                                <div class="imag-overlay39"> <a href="#"><i class="fa fa-plus"
-                                            aria-hidden="true"></i></a> </div>
-                            </div> <span class="points-details938">
-                                <a href="#">
-                                    <h5>Ahmed Hasan</h5>
-                                </a>
-                                <a href="#" class="designetion439">Pundit</a>
-                                <p>206 points</p>
-                            </span>
-                        </div>
-                    </div>
-                    <!--               end of Highest points -->
                     <!--          start tags part-->
                     <div class="tags-part2398">
-                        <h4>Tags</h4>
+                        <h4>Category</h4>
                         <ul>
-                            <li><a href="#">analytics</a></li>
-                            <li><a href="#">Computer</a></li>
-                            <li><a href="#">Developer</a></li>
-                            <li><a href="#">Google</a></li>
-                            <li><a href="#">Interview</a></li>
-                            <li><a href="#">Programmer</a></li>
-                            <li><a href="#">Salary</a></li>
-                            <li><a href="#">University</a></li>
-                            <li><a href="#">Employee</a></li>
+                            <c:forEach items="${requestScope.categories}" var="c">
+                                <li><a href="#">${c.title}</a></li>
+                            </c:forEach>
                         </ul>
                     </div>
                     <!--          End tags part-->

@@ -14,6 +14,22 @@
         <link href="../css/editor.css" rel="stylesheet" type="text/css">
         <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="../css/responsive.css" rel="stylesheet" type="text/css">
+        <script>
+            function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+        </script>
     </head>
 
 </head>
@@ -30,7 +46,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav"> </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="list">Home</a></li>
                         <li><a href="ask">Ask Question</a></li>
                         <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                                  aria-haspopup="true" aria-expanded="false">Search<span class="caret"></span></a>
@@ -90,7 +106,10 @@
                             </div>
                             <div class="button-group-addfile3239">
                                 <span class="form-description23993">Attachment</span><input type="file" name="attachment"
-                                                                                            class="question-ttile3226">
+                                                                                            class="question-ttile3226"
+                                                                                            onchange="readURL(this);">
+                                <img id="blah" src="#" alt="" />
+                                <video id="blah" src="#" alt="" ></video>
                             </div>
                             
                             <div class="publish-button2389">
@@ -131,6 +150,7 @@
             $("#txtEditor").Editor();
         });
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 </body>
 

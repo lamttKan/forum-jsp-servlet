@@ -28,7 +28,7 @@
         <input type="password" placeholder="Password" name="pass"/>
         <div class="text-center">
             <input class="button" type="submit" value="Login" />
-            <a href="signup.html"><div class="button">Create an account</div></a>
+            <a href="register"><div class="button">Create an account</div></a>
         </div>
       </form>
     </div>

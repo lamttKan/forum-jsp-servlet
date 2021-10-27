@@ -43,7 +43,18 @@ public class AccountDBContext extends DBContext {
     }
 
     public void registerAccount(String username, String password, String displayname) {
+
         try {
+            connection.setAutoCommit(false);
+            
+             //create user
+            String sql_user = "INSERT INTO [User] ([username]) VALUES ?";
+            PreparedStatement stm_user = connection.prepareStatement(sql_user);
+            stm_user.setString(1, username);
+            stm_user.executeUpdate();
+            
+            
+            //create acc
             String sql = "INSERT INTO [Account]\n"
                     + "           ([username]\n"
                     + "           ,[password]\n"
@@ -52,15 +63,32 @@ public class AccountDBContext extends DBContext {
                     + "           (?\n"
                     + "           ,?\n"
                     + "           ,?)";
-            PreparedStatement stm = connection.prepareCall(sql);
+            PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, username);
             stm.setString(2, password);
             stm.setString(3, displayname);
             stm.executeUpdate();
+
+           
+
+            connection.commit();
+
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
-        
+
     }
 
 }

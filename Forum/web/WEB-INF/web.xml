@@ -12,6 +12,10 @@
         <servlet-name>AskQuestionController</servlet-name>
         <servlet-class>controller.AskQuestionController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListQuestionController</servlet-name>
+        <servlet-class>controller.ListQuestionController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>AskQuestionController</servlet-name>
         <url-pattern>/questions/ask</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListQuestionController</servlet-name>
+        <url-pattern>/questions/list</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
