@@ -81,4 +81,37 @@ public class QuestionDBContext extends DBContext {
         return posts;
     }
 
+    //get post by username
+    public ArrayList<Post> getPostByUser(String username) {
+        ArrayList<Post> posts = new ArrayList<>();
+        try {
+            String sql = "SELECT [id]\n"
+                    + "      ,[title]\n"
+                    + "      ,[content]\n"
+                    + "      ,[time_created]\n"
+                    + "      ,[username]\n"
+                    + "      ,[category_id]\n"
+                    + "      ,[attachment]\n"
+                    + "  FROM [Post] WHERE [username] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, username);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Post p = new Post();
+                p.setTitle(rs.getString("title"));
+                p.setContent(rs.getString("content"));
+                p.setTime_created(rs.getDate("time_created"));
+                p.setUsername(rs.getString("username"));
+                Category c = new Category();
+                c.setId(rs.getInt("category_id"));
+                p.setCategory(c);
+                p.setAttachment(rs.getString("attachment"));
+                posts.add(p);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return posts;
+    }
+
 }

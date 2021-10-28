@@ -16,6 +16,10 @@
         <servlet-name>ListQuestionController</servlet-name>
         <servlet-class>controller.ListQuestionController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProfileController</servlet-name>
+        <servlet-class>controller.user.ProfileController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>ListQuestionController</servlet-name>
         <url-pattern>/questions/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileController</servlet-name>
+        <url-pattern>/user/profile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
