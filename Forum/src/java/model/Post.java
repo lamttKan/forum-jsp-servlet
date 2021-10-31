@@ -13,23 +13,20 @@ import java.sql.Date;
  * @author ADMIN
  */
 public class Post {
+    private int id;
     private String title;
     private String content;
     private Date time_created;
     private String username;
     private Category category;
     private String attachment;
-
-    public Post() {
+    
+     public int getId() {
+        return id;
     }
 
-    public Post(String title, String content, Date time_created, String username, Category category, String attachment) {
-        this.title = title;
-        this.content = content;
-        this.time_created = time_created;
-        this.username = username;
-        this.category = category;
-        this.attachment = attachment;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

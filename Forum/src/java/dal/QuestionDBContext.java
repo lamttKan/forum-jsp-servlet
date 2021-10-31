@@ -65,6 +65,7 @@ public class QuestionDBContext extends DBContext {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Post p = new Post();
+                p.setId(rs.getInt("id"));
                 p.setTitle(rs.getString("title"));
                 p.setContent(rs.getString("content"));
                 p.setTime_created(rs.getDate("time_created"));
@@ -98,6 +99,7 @@ public class QuestionDBContext extends DBContext {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Post p = new Post();
+                p.setId(rs.getInt("id"));
                 p.setTitle(rs.getString("title"));
                 p.setContent(rs.getString("content"));
                 p.setTime_created(rs.getDate("time_created"));
@@ -112,6 +114,39 @@ public class QuestionDBContext extends DBContext {
             Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return posts;
+    }
+    
+    
+    public Post getPostsById(int id) {
+        try {
+            String sql = "SELECT [id]\n"
+                    + "      ,[title]\n"
+                    + "      ,[content]\n"
+                    + "      ,[time_created]\n"
+                    + "      ,[username]\n"
+                    + "      ,[category_id]\n"
+                    + "      ,[attachment]\n"
+                    + "  FROM [Post] WHERE id = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Post p = new Post();
+                p.setId(rs.getInt("id"));
+                p.setTitle(rs.getString("title"));
+                p.setContent(rs.getString("content"));
+                p.setTime_created(rs.getDate("time_created"));
+                p.setUsername(rs.getString("username"));
+                Category c = new Category();
+                c.setId(rs.getInt("category_id"));
+                p.setCategory(c);
+                p.setAttachment(rs.getString("attachment"));
+                return p;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }

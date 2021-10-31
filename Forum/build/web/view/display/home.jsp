@@ -103,12 +103,13 @@
                                     <div class="col-md-11">
                                         <div class="right-description893">
                                             <div id="que-hedder2983">
-                                                <h3><a href="post-details.html" target="_blank">${p.title}</a></h3>
+                                                <h3><a href="detail?id=${p.id}" target="_blank">${p.title}</a></h3>
                                             </div>
                                             <hr>
                                             <div class="ques-icon-info3293"> 
                                                 <a href="#"><i class="fa fa-user" aria-hidden="true"> ${p.username}</i></a> 
                                                 <a href="#"><i class="fa fa-clock-o" aria-hidden="true">${p.time_created}</i></a>
+                                                <a href="#"><i class="fa fa-tag" aria-hidden="true">${p.category.title}</i></a>
                                                 <a href="#"><i class="fa fa-comment" aria-hidden="true"> 5 answer</i></a>
                                                 <a href="#"><i class="fa fa-user-circle-o" aria-hidden="true"> 70 view</i> </a>
                                             </div>
