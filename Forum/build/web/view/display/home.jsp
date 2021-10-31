@@ -51,7 +51,7 @@
                         </li>
                     </ul>
                 </div>
-                <!-- /.navbar-collapse -->
+                <!-- nav bar-collapse -->
             </div>
             <!-- /.container-fluid -->
         </nav>
@@ -107,7 +107,7 @@
                                             </div>
                                             <hr>
                                             <div class="ques-icon-info3293"> 
-                                                <a href="#"><i class="fa fa-user" aria-hidden="true"> ${p.username}</i></a> 
+                                                <a href="../user/profile?username=${p.username}"><i class="fa fa-user" aria-hidden="true"> ${p.username}</i></a> 
                                                 <a href="#"><i class="fa fa-clock-o" aria-hidden="true">${p.time_created}</i></a>
                                                 <a href="#"><i class="fa fa-tag" aria-hidden="true">${p.category.title}</i></a>
                                                 <a href="#"><i class="fa fa-comment" aria-hidden="true"> 5 answer</i></a>

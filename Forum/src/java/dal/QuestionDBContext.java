@@ -60,7 +60,7 @@ public class QuestionDBContext extends DBContext {
                     + "      ,[username]\n"
                     + "      ,[category_id]\n"
                     + "      ,[attachment]\n"
-                    + "  FROM [Post]";
+                    + "  FROM [Post] ORDER BY time_created DESC";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
@@ -115,8 +115,7 @@ public class QuestionDBContext extends DBContext {
         }
         return posts;
     }
-    
-    
+
     public Post getPostsById(int id) {
         try {
             String sql = "SELECT [id]\n"
@@ -149,4 +148,37 @@ public class QuestionDBContext extends DBContext {
         return null;
     }
 
+    //update
+    public void updatePost(Post p) {
+        try {
+            String sql = "UPDATE [Post]\n"
+                    + "   SET [title] = ?\n"
+                    + "      ,[content] = ?\n"
+                    + "      ,[category_id] = ?\n"
+                    + "      ,[attachment] = ?\n"
+                    + " WHERE id = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, p.getTitle());
+            stm.setString(2, p.getContent());
+            stm.setInt(3, p.getCategory().getId());
+            stm.setString(4, p.getAttachment());
+            stm.setInt(5, p.getId());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //delete
+    public void deletePost(Post p){
+        try {
+            String sql = "DELETE [Post] WHERE id = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, p.getId());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }

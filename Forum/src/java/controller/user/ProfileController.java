@@ -16,13 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
 import model.Post;
-import model.User;
 
 /**
  *
  * @author ADMIN
  */
-public class ProfileController extends BaseRequireAuthenController {
+public class ProfileController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +35,13 @@ public class ProfileController extends BaseRequireAuthenController {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Account account = (Account) request.getSession().getAttribute("account");
-        String username = account.getUsername();
-        //String username = request.getParameter("username");
+        String my_username = account.getUsername();
+        String username = request.getParameter("username");
+        if(username == null || username.trim().length() ==0){
+            username = my_username;
+        }
         UserDBContext Userdb = new UserDBContext();
-        User user = Userdb.getUser(username);
+        Account user = Userdb.getUser(username);
         request.setAttribute("user", user);
                 
         QuestionDBContext db = new QuestionDBContext();
@@ -59,7 +61,7 @@ public class ProfileController extends BaseRequireAuthenController {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -73,7 +75,7 @@ public class ProfileController extends BaseRequireAuthenController {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
