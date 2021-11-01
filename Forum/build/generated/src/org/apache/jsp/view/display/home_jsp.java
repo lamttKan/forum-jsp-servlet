@@ -561,7 +561,7 @@ public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write("                                            </div>\n");
           out.write("                                            <hr>\n");
           out.write("                                            <div class=\"ques-icon-info3293\"> \n");
-          out.write("                                                <a href=\"profile?username=");
+          out.write("                                                <a href=\"../user/profile?username=");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${p.username}", java.lang.String.class, (PageContext)_jspx_page_context, null));
           out.write("\"><i class=\"fa fa-user\" aria-hidden=\"true\"> ");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${p.username}", java.lang.String.class, (PageContext)_jspx_page_context, null));

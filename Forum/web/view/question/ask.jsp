@@ -14,22 +14,6 @@
         <link href="../css/editor.css" rel="stylesheet" type="text/css">
         <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="../css/responsive.css" rel="stylesheet" type="text/css">
-        <script>
-            function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#blah')
-                    .attr('src', e.target.result)
-                    .width(150)
-                    .height(200);
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-        </script>
     </head>
 
 </head>
@@ -107,9 +91,7 @@
                             <div class="button-group-addfile3239">
                                 <span class="form-description23993">Attachment</span><input type="file" name="attachment"
                                                                                             class="question-ttile3226"
-                                                                                            onchange="readURL(this);">
-                                <img id="blah" src="#" alt="" />
-                                <video id="blah" src="#" alt="" ></video>
+                                                                                            >
                             </div>
                             
                             <div class="publish-button2389">

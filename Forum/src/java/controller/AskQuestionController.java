@@ -38,7 +38,7 @@ public class AskQuestionController extends BaseRequireAuthenController {
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         CategoryDBContext categoryDB = new CategoryDBContext();
-        ArrayList<Category> categories =  categoryDB.getCategories();
+        ArrayList<Category> categories = categoryDB.getCategories();
         request.setAttribute("categories", categories);
         request.getRequestDispatcher("/view/question/ask.jsp").forward(request, response);
     }
@@ -58,7 +58,7 @@ public class AskQuestionController extends BaseRequireAuthenController {
         String username = account.getUsername();
         String title = request.getParameter("title");
         String content = request.getParameter("content");
-        
+
         String folderName = "assert";
         String uploadPath = request.getServletContext().getRealPath("") + File.separator + folderName;
         File dir = new File(uploadPath);
@@ -67,18 +67,17 @@ public class AskQuestionController extends BaseRequireAuthenController {
         }
         String pattern = "dd.MM.yyyy hh.mm.ss.SSS";
         DateFormat df = new SimpleDateFormat(pattern);
-        
+
         Part filePart = request.getPart("attachment");
         String fileName = filePart.getSubmittedFileName();
-        
+
         Timestamp added_date = new Timestamp(System.currentTimeMillis());
         String today = df.format(added_date);
-        
-        
-        String attachment = "../" + folderName + File.separator + today + fileName;
+
+        String attachment = folderName + File.separator + today + fileName;
         InputStream is = filePart.getInputStream();
         Files.copy(is, Paths.get(uploadPath + File.separator + today + fileName));
-        
+
         Post p = new Post();
         p.setTitle(title);
         p.setContent(content);
@@ -87,10 +86,10 @@ public class AskQuestionController extends BaseRequireAuthenController {
         c.setId(Integer.parseInt(request.getParameter("category_id")));
         p.setCategory(c);
         p.setAttachment(attachment);
-        
+
         QuestionDBContext db = new QuestionDBContext();
         db.insert(p);
-        
+
     }
 
     /**
