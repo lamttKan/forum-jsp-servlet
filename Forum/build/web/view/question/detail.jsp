@@ -67,7 +67,8 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="post-title-left129">
-                                            <h3>${requestScope.post.title}</h3> </div>
+                                            <h3>${requestScope.post.title}</h3>
+                                        </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="post-que-rep-rihght320"> <a href="#"><i class="fa fa-question-circle" aria-hidden="true"></i> Question</a> <a href="#" class="r-clor10">Report</a> </div>
@@ -90,7 +91,7 @@
                                     </c:when>
 
                                     <c:otherwise>
-                                        
+
                                     </c:otherwise>
                                 </c:choose>
                                 <hr>
@@ -115,17 +116,21 @@
 
                                         <div class="comments-container">
                                             <ul id="comments-list" class="comments-list">
-                                                <li>
-                                                    <div class="comment-main-level">
-                                                        <div class="comment-box">
-                                                            <div class="comment-head">
-                                                                <h6 class="comment-name"><a href="#">Lorena Rojero</a></h6> <span><i class="fa fa-clock-o" aria-hidden="true"> January 15 , 2014 at 10:00 pm</i></span> <i class="fa fa-reply"></i> <i class="fa fa-heart"></i> </div>
-                                                            <div class="comment-content"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo? </div>
+                                                <c:forEach items="${requestScope.comments}" var="c">
+                                                    <li>
+                                                        <div class="comment-main-level">
+                                                            <div class="comment-box">
+                                                                <div class="comment-head">
+                                                                    <h6 class="comment-name"><a href="../user/profile?${c.username}">${c.username}</a></h6> 
+                                                                    <span><i class="fa fa-clock-o" aria-hidden="true"> January 15 , 2014 at 10:00 pm</i></span> 
+                                                                    <i class="fa fa-reply"></i> <i class="fa fa-heart"></i> 
+                                                                </div>
+                                                                <div class="comment-content">${c.content}</div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </li>
+                                                    </li>
+                                                </c:forEach>
                                             </ul>
-
                                         </div>
                                     </div>
                                 </div>
@@ -136,42 +141,44 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="post9320-box">
-                                            <input type="text" class="comment-input219882" placeholder="Enter Your Post"> </div>
-                                        <button type="button" class="pos393-submit">Post Your Answer</button>
+                                            <form action="detail" method ="POST">
+                                                <input type="hidden" name="postid" value="${requestScope.post.id}" />
+                                                <input type="text" name="cmt_content" class="comment-input219882" placeholder="Write a comment ..."> </div>
+                                                <input type="submit" class="pos393-submit" value="Sent">
+                                            </form>
+                                        </div>
                                     </div>
+                                </div>
+                            </div>
+                            <!--                end of col-md-9 -->
+                            <!--           strart col-md-3 (side bar)-->
 
+                        </div>
+                    </div>
+                    </section>
+                    <!--    footer -->
+
+                    <br/>
+
+                    <section class="footer-part">
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="info-part-one320">
+                                        <h4>Contact :</h4>
+                                        <p>Author : Thanh Lam Tran</p>
+                                        <p>Facebook: https://www.facebook.com/lamkan01/ </p>
+                                        <p>Email: lamtthe150351@fpt.edu.vn</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!--                end of col-md-9 -->
-                        <!--           strart col-md-3 (side bar)-->
+                    </section>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+                    <script src="js/jquery-3.1.1.min.js"></script>
+                    <script src="js/bootstrap.min.js"></script>
+                    <script src="js/npm.js"></script>
+                    </body>
 
-                    </div>
-                </div>
-        </section>
-        <!--    footer -->
-
-        <br/>
-
-        <section class="footer-part">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-md-3">
-                        <div class="info-part-one320">
-                            <h4>Contact :</h4>
-                            <p>Author : Thanh Lam Tran</p>
-                            <p>Facebook: https://www.facebook.com/lamkan01/ </p>
-                            <p>Email: lamtthe150351@fpt.edu.vn</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="js/jquery-3.1.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/npm.js"></script>
-    </body>
-
-</html>
+                    </html>

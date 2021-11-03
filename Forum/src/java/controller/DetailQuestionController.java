@@ -5,13 +5,16 @@
  */
 package controller;
 
+import dal.CommentDBContext;
 import dal.QuestionDBContext;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
+import model.Comment;
 import model.Post;
 
 /**
@@ -20,52 +23,38 @@ import model.Post;
  */
 public class DetailQuestionController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         QuestionDBContext qdb = new QuestionDBContext();
         Post p = qdb.getPostsById(id);
         request.setAttribute("post", p);
-        request.getRequestDispatcher("../view/question/detail.jsp").forward(request, response);
         
+        CommentDBContext cdb = new CommentDBContext();
+        ArrayList<Comment> comments = cdb.getCommentsByPostId(id);
+        request.setAttribute("comments", comments);
+        
+        request.getRequestDispatcher("../view/question/detail.jsp").forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Account account = (Account) request.getSession().getAttribute("account");
+        
+        Comment c = new Comment();
+        c.setContent(request.getParameter("cmt_content"));
+        c.setAccount(account);
+        Post post = new Post();
+        int postid = Integer.parseInt(request.getParameter("postid"));
+        post.setId(postid);
+        c.setPost(post);
+        
+        CommentDBContext db = new CommentDBContext();
+        db.insertComment(c);
+        request.getRequestDispatcher("../view/question/detail.jsp").forward(request, response);
     }
 
     /**
