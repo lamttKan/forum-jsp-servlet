@@ -21,25 +21,22 @@ import model.Post;
  */
 public class CommentDBContext extends DBContext {
 
-    public void insertComment(Comment c) {
+    public void insertComment(String content, String username, int post_id) {
         try {
             String sql = "INSERT INTO [Comment]\n"
-                    + "           ([comment_id]\n"
-                    + "           ,[time_created]\n"
+                    + "           ([time_created]\n"
                     + "           ,[content]\n"
                     + "           ,[username]\n"
                     + "           ,[post_id])\n"
                     + "     VALUES\n"
-                    + "           (?\n"
-                    + "           ,GETDATE()\n"
+                    + "           (GETDATE()\n"
                     + "           ,?\n"
                     + "           ,?\n"
                     + "           ,?)";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, c.getId());
-            stm.setString(2, c.getContent());
-            stm.setString(3, c.getAccount().getUsername());
-            stm.setInt(4, c.getPost().getId());
+            stm.setString(1, content);
+            stm.setString(2, username);
+            stm.setInt(3, post_id);
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CommentDBContext.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,8 +57,8 @@ public class CommentDBContext extends DBContext {
             Logger.getLogger(CommentDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void deleteComment(Comment c){
+
+    public void deleteComment(Comment c) {
         try {
             String sql = "DELETE FROM [Comment] WHERE comment_id = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -71,15 +68,15 @@ public class CommentDBContext extends DBContext {
             Logger.getLogger(CommentDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public ArrayList<Comment> getCommentsByPostId(int postId){
+
+    public ArrayList<Comment> getCommentsByPostId(int postId) {
         ArrayList<Comment> comments = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Comment WHERE post_id = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, postId);
             ResultSet rs = stm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Comment c = new Comment();
                 c.setId(rs.getInt("comment_id"));
                 c.setTime_created(rs.getDate("time_created"));

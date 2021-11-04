@@ -102,7 +102,7 @@
                                 </div> -->
                                     <a href="#"><i class="fa fa-user" aria-hidden="true"> ${requestScope.username}</i></a> 
                                     <a href="#"><i class="fa fa-clock-o" aria-hidden="true">${requestScope.post.time_created}</i></a>
-                                    <a href="#"><i class="fa fa-tag" aria-hidden="true">${requestScope.category.title}</i></a>
+                                    <a href="#"><i class="fa fa-tag" aria-hidden="true">${requestScope.post.category.title}</i></a>
                                     <a href="#"><i class="fa fa-comment" aria-hidden="true"> 5 answer</i></a>
                                     <a href="#"><i class="fa fa-user-circle-o" aria-hidden="true"> 70 view</i> </a>
                                 </div>
@@ -121,7 +121,7 @@
                                                         <div class="comment-main-level">
                                                             <div class="comment-box">
                                                                 <div class="comment-head">
-                                                                    <h6 class="comment-name"><a href="../user/profile?${c.username}">${c.username}</a></h6> 
+                                                                    <h6 class="comment-name"><a href="../user/profile?${c.account.username}">${c.account.username}</a></h6> 
                                                                     <span><i class="fa fa-clock-o" aria-hidden="true"> January 15 , 2014 at 10:00 pm</i></span> 
                                                                     <i class="fa fa-reply"></i> <i class="fa fa-heart"></i> 
                                                                 </div>

@@ -53,14 +53,9 @@ public class QuestionDBContext extends DBContext {
     public ArrayList<Post> getPosts() {
         ArrayList<Post> posts = new ArrayList<>();
         try {
-            String sql = "SELECT [id]\n"
-                    + "      ,[title]\n"
-                    + "      ,[content]\n"
-                    + "      ,[time_created]\n"
-                    + "      ,[username]\n"
-                    + "      ,[category_id]\n"
-                    + "      ,[attachment]\n"
-                    + "  FROM [Post] ORDER BY time_created DESC";
+            String sql = "SELECT p.*, c.title as cname FROM Post P\n"
+                    + "INNER JOIN Category c ON p.category_id = c.id \n"
+                    + "ORDER BY id DESC";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
@@ -72,6 +67,7 @@ public class QuestionDBContext extends DBContext {
                 p.setUsername(rs.getString("username"));
                 Category c = new Category();
                 c.setId(rs.getInt("category_id"));
+                c.setTitle(rs.getString("cname"));
                 p.setCategory(c);
                 p.setAttachment(rs.getString("attachment"));
                 posts.add(p);
@@ -86,14 +82,9 @@ public class QuestionDBContext extends DBContext {
     public ArrayList<Post> getPostByUser(String username) {
         ArrayList<Post> posts = new ArrayList<>();
         try {
-            String sql = "SELECT [id]\n"
-                    + "      ,[title]\n"
-                    + "      ,[content]\n"
-                    + "      ,[time_created]\n"
-                    + "      ,[username]\n"
-                    + "      ,[category_id]\n"
-                    + "      ,[attachment]\n"
-                    + "  FROM [Post] WHERE [username] = ?";
+            String sql = "SELECT SELECT p.*, c.title as cname FROM Post P\n"
+                    + "INNER JOIN Category c ON p.category_id = c.id \n"
+                    + "WHERE [username] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, username);
             ResultSet rs = stm.executeQuery();
@@ -106,6 +97,7 @@ public class QuestionDBContext extends DBContext {
                 p.setUsername(rs.getString("username"));
                 Category c = new Category();
                 c.setId(rs.getInt("category_id"));
+                c.setTitle(rs.getString("cname"));
                 p.setCategory(c);
                 p.setAttachment(rs.getString("attachment"));
                 posts.add(p);
@@ -118,14 +110,9 @@ public class QuestionDBContext extends DBContext {
 
     public Post getPostsById(int id) {
         try {
-            String sql = "SELECT [id]\n"
-                    + "      ,[title]\n"
-                    + "      ,[content]\n"
-                    + "      ,[time_created]\n"
-                    + "      ,[username]\n"
-                    + "      ,[category_id]\n"
-                    + "      ,[attachment]\n"
-                    + "  FROM [Post] WHERE id = ?";
+            String sql = "SELECT p.*, c.title as cname FROM Post P\n"
+                    + "INNER JOIN Category c ON p.category_id = c.id \n"
+                    + "WHERE p.id = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
@@ -138,6 +125,7 @@ public class QuestionDBContext extends DBContext {
                 p.setUsername(rs.getString("username"));
                 Category c = new Category();
                 c.setId(rs.getInt("category_id"));
+                c.setTitle(rs.getString("cname"));
                 p.setCategory(c);
                 p.setAttachment(rs.getString("attachment"));
                 return p;
@@ -170,7 +158,7 @@ public class QuestionDBContext extends DBContext {
     }
 
     //delete
-    public void deletePost(Post p){
+    public void deletePost(Post p) {
         try {
             String sql = "DELETE [Post] WHERE id = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -180,5 +168,5 @@ public class QuestionDBContext extends DBContext {
             Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

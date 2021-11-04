@@ -22,10 +22,8 @@ public class CategoryDBContext extends DBContext {
     public ArrayList<Category> getCategories() {
         ArrayList<Category> categories = new ArrayList<>();
         try {
-            String sql = "SELECT [id]\n"
-                    + "      ,[title]\n"
-                    + "  FROM [Category]";
-            PreparedStatement stm = connection.prepareCall(sql);
+            String sql = "SELECT * FROM Category";
+            PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while(rs.next()){
                 Category c = new Category();

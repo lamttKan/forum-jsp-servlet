@@ -86,8 +86,6 @@
                         <label for="tab1">Recent Question</label>
                         <input id="tab2" type="radio" name="tabs">
                         <label for="tab2">Most Response</label>
-                        <input id="tab3" type="radio" name="tabs">
-                        <label for="tab3">Recently Answered</label>
                         <input id="tab4" type="radio" name="tabs">
                         <label for="tab4">No Answer</label>
                         <input id="tab5" type="radio" name="tabs">
@@ -108,10 +106,10 @@
                                             <hr>
                                             <div class="ques-icon-info3293"> 
                                                 <a href="../user/profile?username=${p.username}"><i class="fa fa-user" aria-hidden="true"> ${p.username}</i></a> 
-                                                <a href="#"><i class="fa fa-clock-o" aria-hidden="true">${p.time_created}</i></a>
-                                                <a href="#"><i class="fa fa-tag" aria-hidden="true">${p.category.title}</i></a>
-                                                <a href="#"><i class="fa fa-comment" aria-hidden="true"> 5 answer</i></a>
-                                                <a href="#"><i class="fa fa-user-circle-o" aria-hidden="true"> 70 view</i> </a>
+                                                <i class="fa fa-clock-o" aria-hidden="true">${p.time_created}</i>
+                                                <i class="fa fa-tag" aria-hidden="true">${p.category.title}</i>
+                                                <i class="fa fa-comment" aria-hidden="true"> 5 answer</i>
+<!--                                            <i class="fa fa-user-circle-o" aria-hidden="true"> 70 view</i> -->
                                             </div>
                                         </div>
                                     </div>
@@ -213,80 +211,6 @@
                         </section>
 
                         <!----end of content-2----->
-
-                        <section id="content3">
-                            <!--Recently answered Content Section -->
-                            <div class="question-type2033">
-                                <div class="row">
-                                    <div class="col-md-1">
-                                        <div class="left-user12923 left-user12923-repeat">
-                                            <a href="#"><img src="image/images.png" alt="image"> </a> <a href="#"><i
-                                                    class="fa fa-check" aria-hidden="true"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <div class="right-description893">
-                                            <div id="que-hedder2983">
-                                                <h3><a href="post-deatils.html" target="_blank">This is my first
-                                                        Question</a></h3>
-                                            </div>
-                                            <div class="ques-details10018">
-                                                <p>Duis dapibus aliquam mi, eget euismod sem scelerisque ut. Vivamus at
-                                                    elit quis urna adipiscing iaculis.Duis dapibus aliquam mi, eget
-                                                    euismod sem scelerisque ut. Vivamus at elit quis urna adipiscing
-                                                    iaculis.</p>
-                                            </div>
-                                            <hr>
-                                            <div class="ques-icon-info3293"> <a href="#"><i class="fa fa-check"
-                                                        aria-hidden="true"> solved</i></a> <a href="#"><i
-                                                        class="fa fa-star" aria-hidden="true"> 5</i> </a> <a href="#"><i
-                                                        class="fa fa-folder" aria-hidden="true"> wordpress</i></a> <a
-                                                    href="#"><i class="fa fa-clock-o" aria-hidden="true"> 4 min
-                                                        ago</i></a> <a href="#"><i class="fa fa-comment"
-                                                        aria-hidden="true"> 5 answer</i></a> <a href="#"><i
-                                                        class="fa fa-user-circle-o" aria-hidden="true"> 70 view</i> </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="ques-type302">
-                                            <a href="#">
-                                                <button type="button" class="q-type238"><i class="fa fa-comment"
-                                                        aria-hidden="true"> 333335 answer</i></button>
-                                            </a>
-                                            <a href="#">
-                                                <button type="button" class="q-type23 button-ques2973"> <i
-                                                        class="fa fa-user-circle-o" aria-hidden="true"> 70 view</i>
-                                                </button>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination">
-                                    <li>
-                                        <a href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li>
-                                        <a href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </section>
-                        <!--End content-3 -->
-
 
                         <section id="content4">
                             <!--No answered Content Section -->
@@ -438,16 +362,6 @@
                 <!--strart col-md-3 (side bar)-->
                 <aside class="col-md-3 sidebar97239">
                     
-<!--                    <div class="categori-part329">
-                        <h4>Category</h4>
-                        <ul>
-                            <li><a href="#">web developer</a></li>
-                            <li><a href="#">Andriod developer</a></li>
-                            <li><a href="#">grapics developer</a></li>
-                            <li><a href="#">web developer</a></li>
-                        </ul>
-                    </div>-->
-
                     <!--          start tags part-->
                     <div class="tags-part2398">
                         <h4>Category</h4>

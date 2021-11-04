@@ -35,26 +35,20 @@ public class DetailQuestionController extends HttpServlet {
         CommentDBContext cdb = new CommentDBContext();
         ArrayList<Comment> comments = cdb.getCommentsByPostId(id);
         request.setAttribute("comments", comments);
-        
         request.getRequestDispatcher("../view/question/detail.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String content = (request.getParameter("cmt_content"));
         Account account = (Account) request.getSession().getAttribute("account");
-        
-        Comment c = new Comment();
-        c.setContent(request.getParameter("cmt_content"));
-        c.setAccount(account);
-        Post post = new Post();
+        String username = account.getUsername();
         int postid = Integer.parseInt(request.getParameter("postid"));
-        post.setId(postid);
-        c.setPost(post);
         
         CommentDBContext db = new CommentDBContext();
-        db.insertComment(c);
-        request.getRequestDispatcher("../view/question/detail.jsp").forward(request, response);
+        db.insertComment(content, username, postid);
+        response.sendRedirect("detail?" + postid);
     }
 
     /**
