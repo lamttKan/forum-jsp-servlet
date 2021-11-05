@@ -43,10 +43,11 @@ public class LoginController extends HttpServlet {
         Account account = db.getAccount(user, pass);
         if(account != null){
             request.getSession().setAttribute("account", account);
-            response.getWriter().println("Login Successed");
+            response.sendRedirect("/Forum/questions/list");
         }else{
             request.getSession().setAttribute("account", null);
-            response.getWriter().println("Login Failed");
+            request.setAttribute("alert", "Login fail");
+            response.sendRedirect("login");
         }
     }
     

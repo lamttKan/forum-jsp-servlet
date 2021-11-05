@@ -5,7 +5,7 @@
  */
 package controller;
 
-import dal.CommentDBContext;
+import dal.CategoryDBContext;
 import dal.QuestionDBContext;
 import java.io.IOException;
 import static java.lang.System.out;
@@ -15,48 +15,49 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
-import model.Comment;
+import model.Category;
 import model.Post;
 
 /**
  *
  * @author ADMIN
  */
-public class DetailQuestionController extends HttpServlet {
+public class UpdateController extends HttpServlet {
 
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         
-        QuestionDBContext qdb = new QuestionDBContext();
-        Post p = qdb.getPostsById(id);
+        QuestionDBContext db = new QuestionDBContext();
+        Post p = db.getPostsById(id);
         request.setAttribute("post", p);
         
-        int answer = qdb.countAnswer(id);
-        request.setAttribute("answer", answer);
+        CategoryDBContext categoryDB = new CategoryDBContext();
+        ArrayList<Category> categories = categoryDB.getCategories();
+        request.setAttribute("categories", categories);
         
-        CommentDBContext cdb = new CommentDBContext();
-        ArrayList<Comment> comments = cdb.getCommentsByPostId(id);
-        request.setAttribute("comments", comments);
-        
-        request.getRequestDispatcher("../view/question/detail.jsp").forward(request, response);
+        request.getRequestDispatcher("../view/question/update.jsp").forward(request, response);
     }
 
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String content = (request.getParameter("cmt_content"));
         Account account = (Account) request.getSession().getAttribute("account");
         String username = account.getUsername();
-        int postid = Integer.parseInt(request.getParameter("postid"));
-        
-        CommentDBContext db = new CommentDBContext();
-        db.insertComment(content, username, postid);
-        String path="detail?id=" + postid;
-       // out.println(path);
-        response.sendRedirect(path);
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+        Post p = new Post();
+        p.setTitle(title);
+        p.setContent(content);
+        p.setUsername(username);
+        Category c = new Category();
+        c.setId(Integer.parseInt(request.getParameter("category_id")));
+        p.setCategory(c);
+        String id = request.getParameter("id");
+        QuestionDBContext db = new QuestionDBContext();
+        db.updatePost(p);
     }
 
     /**

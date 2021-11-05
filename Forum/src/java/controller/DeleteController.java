@@ -5,23 +5,19 @@
  */
 package controller;
 
-import dal.CategoryDBContext;
 import dal.QuestionDBContext;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
-import model.Category;
-import model.Post;
 
 /**
  *
  * @author ADMIN
  */
-public class ListQuestionController extends HttpServlet {
+public class DeleteController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,27 +30,9 @@ public class ListQuestionController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
         QuestionDBContext db = new QuestionDBContext();
-        ArrayList<Post> posts = db.getPosts();
-        request.setAttribute("posts", posts);
-        
-        ArrayList<Post> mostRespPosts = db.getPostsMostResponse();
-        request.setAttribute("mostRespPosts", mostRespPosts);
-        
-        ArrayList<Post> noAnsPosts = db.getPostsNoAns();
-        request.setAttribute("noAnsPosts", noAnsPosts);
-        
-        CategoryDBContext categoryDB = new CategoryDBContext();
-        ArrayList<Category> categories =  categoryDB.getCategories();
-        request.setAttribute("categories", categories);
-        
-        Account account = (Account) request.getSession().getAttribute("account");
-        String username = account.getUsername();
-        ArrayList<Post> myposts = db.getPostByUser(username);
-        request.setAttribute("myposts", myposts);
-        
-        request.getRequestDispatcher("../view/display/home.jsp").forward(request, response);
-        
+        db.deletePost(id);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -3,7 +3,7 @@
     Created on : Sep 29, 2021, 4:45:30 PM
     Author     : Trung
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html >
@@ -31,6 +31,7 @@
             <a href="register"><div class="button">Create an account</div></a>
         </div>
       </form>
+      <br>
     </div>
 
  

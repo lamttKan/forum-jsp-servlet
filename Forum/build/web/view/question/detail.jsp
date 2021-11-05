@@ -100,11 +100,10 @@
                                         <button type="button" class="tolltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like"><i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
                                         <button type="button" class="tolltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button> <span class="single-question-vote-result">+22</span> </div>
                                 </div> -->
-                                    <a href="#"><i class="fa fa-user" aria-hidden="true"> ${requestScope.username}</i></a> 
-                                    <a href="#"><i class="fa fa-clock-o" aria-hidden="true">${requestScope.post.time_created}</i></a>
-                                    <a href="#"><i class="fa fa-tag" aria-hidden="true">${requestScope.post.category.title}</i></a>
-                                    <a href="#"><i class="fa fa-comment" aria-hidden="true"> 5 answer</i></a>
-                                    <a href="#"><i class="fa fa-user-circle-o" aria-hidden="true"> 70 view</i> </a>
+                                    <i class="fa fa-user" aria-hidden="true"> ${requestScope.username}</i>
+                                    <i class="fa fa-clock-o" aria-hidden="true">${requestScope.post.time_created}</i>
+                                    <i class="fa fa-tag" aria-hidden="true">${requestScope.post.category.title}</i>
+                                    <i class="fa fa-comment" aria-hidden="true">${requestScope.answer} answers </i>
                                 </div>
                             </div>
                             <br>
