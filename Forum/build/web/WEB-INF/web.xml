@@ -32,6 +32,18 @@
         <servlet-name>DeleteController</servlet-name>
         <servlet-class>controller.DeleteController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchByCategoryController</servlet-name>
+        <servlet-class>controller.SearchByCategoryController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchUserController</servlet-name>
+        <servlet-class>controller.user.SearchUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdvancedSearchController</servlet-name>
+        <servlet-class>controller.AdvancedSearchController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -63,6 +75,18 @@
     <servlet-mapping>
         <servlet-name>DeleteController</servlet-name>
         <url-pattern>/questions/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchByCategoryController</servlet-name>
+        <url-pattern>/searchByCategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchUserController</servlet-name>
+        <url-pattern>/user/searchUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdvancedSearchController</servlet-name>
+        <url-pattern>/questions/search</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

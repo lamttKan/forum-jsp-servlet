@@ -5,10 +5,13 @@
  */
 package dal;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Category;
@@ -109,6 +112,7 @@ public class QuestionDBContext extends DBContext {
         return posts;
     }
 
+    //get post by post id
     public Post getPostsById(int id) {
         try {
             String sql = "SELECT p.*, c.title as cname FROM Post P\n"
@@ -168,6 +172,7 @@ public class QuestionDBContext extends DBContext {
         }
     }
 
+    //count total answer of a post
     public int countAnswer(int id) {
         int answers = 0;
         try {
@@ -223,7 +228,7 @@ public class QuestionDBContext extends DBContext {
         return posts;
     }
 
-    //list post no answers
+    //list post most answers
     public ArrayList<Post> getPostsMostResponse() {
         ArrayList<Post> posts = new ArrayList<>();
         try {
@@ -246,6 +251,136 @@ public class QuestionDBContext extends DBContext {
                 p.setUsername(rs.getString("username"));
                 Category c = new Category();
                 c.setId(rs.getInt("cid"));
+                c.setTitle(rs.getString("cname"));
+                p.setCategory(c);
+                p.setAttachment(rs.getString("attachment"));
+                posts.add(p);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return posts;
+    }
+
+    //search by category
+    public ArrayList<Post> searchByCategory(int cid) {
+        ArrayList<Post> posts = new ArrayList<>();
+        try {
+            String sql = "SELECT p.* , c.id as cid, c.title as cname FROM Post p\n"
+                    + "INNER JOIN Category c ON p.category_id = c.id\n"
+                    + "WHERE p.category_id = ?\n"
+                    + "ORDER BY p.id DESC";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, cid);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Post p = new Post();
+                p.setId(rs.getInt("id"));
+                p.setTitle(rs.getString("title"));
+                p.setContent(rs.getString("content"));
+                p.setTime_created(rs.getDate("time_created"));
+                p.setUsername(rs.getString("username"));
+                Category c = new Category();
+                c.setId(rs.getInt("cid"));
+                c.setTitle(rs.getString("cname"));
+                p.setCategory(c);
+                p.setAttachment(rs.getString("attachment"));
+                posts.add(p);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return posts;
+    }
+
+    //advanced search
+    public ArrayList<Post> searchAdvance(String title, String content, Date from, Date to, int cid, String username) {
+        ArrayList<Post> posts = new ArrayList<>();
+        try {
+            String sql = "SELECT p.* , c.title as cname FROM Post p \n"
+                    + "INNER JOIN Category c ON p.category_id = c.id\n"
+                    + "WHERE\n"
+                    + "(1=1)";
+
+            int paramIndex = 0;
+            HashMap<Integer, Object[]> params = new HashMap<>();
+
+            if (title != null && title.length() > 0) {
+                sql += "AND p.title like '%' + ? + '%'";
+                paramIndex++;
+                Object[] param = new Object[2];
+                param[0] = String.class.getName();
+                param[1] = title;
+                params.put(paramIndex, param);
+            }
+            if (content != null && content.length() > 0) {
+                sql += "AND p.title like '%' + ? + '%'";
+                paramIndex++;
+                Object[] param = new Object[2];
+                param[0] = String.class.getName();
+                param[1] = content;
+                params.put(paramIndex, param);
+            }
+            if (from != null) {
+                sql += "AND p.time_created >= ?";
+                paramIndex++;
+                Object[] param = new Object[2];
+                param[0] = Date.class.getName();
+                param[1] = from;
+                params.put(paramIndex, param);
+            }
+            if (to != null) {
+                sql += "AND p.time_created <= ?";
+                paramIndex++;
+                Object[] param = new Object[2];
+                param[0] = Date.class.getName();
+                param[1] = to;
+                params.put(paramIndex, param);
+            }
+            if (cid != -1) {
+                sql += "AND p.category_id = ?";
+                paramIndex++;
+                Object[] param = new Object[2];
+                param[0] = Integer.class.getName();
+                param[1] = cid;
+                params.put(paramIndex, param);
+            }
+            if (username != null && username.length() > 0) {
+                sql += "AND p.username like '%' + ? + '%'";
+                paramIndex++;
+                Object[] param = new Object[2];
+                param[0] = String.class.getName();
+                param[1] = username;
+                params.put(paramIndex, param);
+            }
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+
+            for (Map.Entry<Integer, Object[]> entry : params.entrySet()) {
+                Integer index = entry.getKey();
+                Object[] value = entry.getValue();
+                String type = value[0].toString();
+                if (type.equals(Integer.class.getName())) {
+                    stm.setInt(index, (Integer) value[1]);
+                } else if (type.equals(String.class.getName())) {
+                    stm.setString(index, value[1].toString());
+                } else if (type.equals(Date.class.getName())) {
+                    stm.setDate(index, (Date) value[1]);
+                } else if (type.equals(Boolean.class.getName())) {
+                    stm.setBoolean(index, (Boolean) value[1]);
+                }
+            }
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Post p = new Post();
+                p.setId(rs.getInt("id"));
+                p.setTitle(rs.getString("title"));
+                p.setContent(rs.getString("content"));
+                p.setTime_created(rs.getDate("time_created"));
+                p.setUsername(rs.getString("username"));
+                Category c = new Category();
+                c.setId(rs.getInt("category_id"));
                 c.setTitle(rs.getString("cname"));
                 p.setCategory(c);
                 p.setAttachment(rs.getString("attachment"));
