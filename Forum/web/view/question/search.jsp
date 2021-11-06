@@ -94,65 +94,70 @@
 
                             <div class="question-title39">
                                 <span class="form-description432">Question-Title </span>
-                                <input type="text" name="title" class="question-ttile32" placeholder="Write Your Question Title">
+                                <input type="text" name="title" value="${param.title}" class="question-ttile32" placeholder="Write Your Question Title">
                             </div>
-                            
+
                             <div class="question-title39">
                                 <span class="form-description432">Body Question</span><input type="text" name="content"
-                                    class="question-ttile32" placeholder="What's on your mind?">
+                                                                                             class="question-ttile32" value="${param.content}" placeholder="What's on your mind?">
                             </div>
 
                             <div class="question-title39">
                                 <span class="form-description432">Post Newer than </span><input type="date" name="from"
-                                    class="question-ttile32" >
+                                                                                                value="${param.from}" class="question-ttile32" >
                             </div>
 
                             <div class="question-title39">
-                                <span class="form-description432">Post Older than </span> <input type="date" name="to" class="question-ttile32" > 
-                                    
+                                <span class="form-description432">Post Older than </span> <input type="date" name="to" value="${param.to}" class="question-ttile32" > 
+
                             </div>
 
                             <div class="categori49">
                                 <span class="form-description432">Category </span>
                                 <select name="category_id" class="question-ttile32">
+                                    <option value="-1"> All </option>
                                     <c:forEach items="${requestScope.categories}" var="c">
-                                        <option value="${c.id}">${c.title}</option>
+                                        <option 
+                                            <c:if test="${c.id eq param.cid}">
+                                                selected="selected"
+                                            </c:if>
+                                            value="${c.id}">${c.title}</option>
                                     </c:forEach>
                                 </select>
                             </div>
 
                             <div class="question-title39">
                                 <span class="form-description432">Username</span><input type="text" name="username"
-                                    class="question-ttile32" placeholder="What's on your mind?">
+                                                                                        value="${param.username}" class="question-ttile32">
                             </div>
-                            
+
                             <div class="publish-button2389">
                                 <input type="submit" class="publis1291" value="Search" />
                             </div>
                         </form>         
                         <hr>
                         <c:forEach items="${requestScope.searchPosts}" var="p">
-                                    <div class="question-type2033">
-                                        <div class="row">
-                                            <div class="col-md-11">
-                                                <div class="right-description893">
-                                                    <div id="que-hedder2983">
-                                                        <h3><a href="detail?id=${p.id}" target="_blank">${p.title}</a></h3>
-                                                    </div>
-                                                    <hr>
-                                                    <div class="ques-icon-info3293"> 
-                                                        <a href="../user/profile?username=${p.username}"><i class="fa fa-user" aria-hidden="true"> ${p.username}</i></a> 
-                                                        <i class="fa fa-clock-o" aria-hidden="true">${p.time_created}</i>
-                                                        <i class="fa fa-tag" aria-hidden="true">${p.category.title}</i>
-                                                        <i class="fa fa-comment" aria-hidden="true"> 5 answer</i>
-                                                        <!--                                            <i class="fa fa-user-circle-o" aria-hidden="true"> 70 view</i> -->
-                                                    </div>
-                                                </div>
+                            <div class="question-type2033">
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <div class="right-description893">
+                                            <div id="que-hedder2983">
+                                                <h3><a href="detail?id=${p.id}" target="_blank">${p.title}</a></h3>
                                             </div>
-
+                                            <hr>
+                                            <div class="ques-icon-info3293"> 
+                                                <a href="../user/profile?username=${p.username}"><i class="fa fa-user" aria-hidden="true"> ${p.username}</i></a> 
+                                                <i class="fa fa-clock-o" aria-hidden="true">${p.time_created}</i>
+                                                <i class="fa fa-tag" aria-hidden="true">${p.category.title}</i>
+                                                <i class="fa fa-comment" aria-hidden="true"> 5 answer</i>
+                                                <!--                                            <i class="fa fa-user-circle-o" aria-hidden="true"> 70 view</i> -->
+                                            </div>
                                         </div>
-                                    </div>                   
-                                </c:forEach>    
+                                    </div>
+
+                                </div>
+                            </div>                   
+                        </c:forEach>    
 
                     </div>
                 </div>

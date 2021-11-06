@@ -306,7 +306,7 @@ public class QuestionDBContext extends DBContext {
             HashMap<Integer, Object[]> params = new HashMap<>();
 
             if (title != null && title.length() > 0) {
-                sql += "AND p.title like '%' + ? + '%'";
+                sql += " AND p.title like '%' + ? + '%'";
                 paramIndex++;
                 Object[] param = new Object[2];
                 param[0] = String.class.getName();
@@ -314,7 +314,7 @@ public class QuestionDBContext extends DBContext {
                 params.put(paramIndex, param);
             }
             if (content != null && content.length() > 0) {
-                sql += "AND p.title like '%' + ? + '%'";
+                sql += " AND p.content like '%' + ? + '%'";
                 paramIndex++;
                 Object[] param = new Object[2];
                 param[0] = String.class.getName();
@@ -322,7 +322,7 @@ public class QuestionDBContext extends DBContext {
                 params.put(paramIndex, param);
             }
             if (from != null) {
-                sql += "AND p.time_created >= ?";
+                sql += " AND p.time_created >= ?";
                 paramIndex++;
                 Object[] param = new Object[2];
                 param[0] = Date.class.getName();
@@ -330,7 +330,7 @@ public class QuestionDBContext extends DBContext {
                 params.put(paramIndex, param);
             }
             if (to != null) {
-                sql += "AND p.time_created <= ?";
+                sql += " AND p.time_created <= ?";
                 paramIndex++;
                 Object[] param = new Object[2];
                 param[0] = Date.class.getName();
@@ -338,7 +338,7 @@ public class QuestionDBContext extends DBContext {
                 params.put(paramIndex, param);
             }
             if (cid != -1) {
-                sql += "AND p.category_id = ?";
+                sql += " AND p.category_id = ?";
                 paramIndex++;
                 Object[] param = new Object[2];
                 param[0] = Integer.class.getName();

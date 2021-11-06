@@ -23,26 +23,7 @@ import model.Post;
  */
 public class AdvancedSearchController extends HttpServlet {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        CategoryDBContext categoryDB = new CategoryDBContext();
-        ArrayList<Category> categories = categoryDB.getCategories();
-        request.setAttribute("categories", categories);
-        
-        request.getRequestDispatcher("../view/question/search.jsp").forward(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String title = request.getParameter("title");
         String content = request.getParameter("content");
@@ -67,6 +48,27 @@ public class AdvancedSearchController extends HttpServlet {
         ArrayList<Category> categories = categoryDB.getCategories();
         request.setAttribute("categories", categories);
         request.getRequestDispatcher("../view/question/search.jsp").forward(request, response);
+        
+    }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
