@@ -5,6 +5,7 @@
  */
 package dal;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -66,7 +67,7 @@ public class UserDBContext extends DBContext {
     }
 
     //update profile 
-    public void updateProfile(Account a) {
+    public void updateProfile(String firstname, String lastname, Boolean gender, Date dob, String email, String username) {
         try {
             String sql = "UPDATE [Account]\n"
                     + "   SET \n"
@@ -77,11 +78,12 @@ public class UserDBContext extends DBContext {
                     + "      ,[email] = ?\n"
                     + " WHERE username = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, a.getFirstname());
-            stm.setString(2, a.getLastname());
-            stm.setBoolean(3, a.getGender());
-            stm.setDate(4, a.getDob());
-            stm.setString(5, a.getEmail());
+            stm.setString(1, firstname);
+            stm.setString(2, lastname);
+            stm.setBoolean(3, gender);
+            stm.setDate(4, dob);
+            stm.setString(5, email);
+            stm.setString(6, username);
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);

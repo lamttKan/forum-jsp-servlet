@@ -42,12 +42,14 @@ public class UpdateProfile extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("username");
-        String firstname = request.getParameter("firstnamee");
+        String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
-        Boolean gender = request.getParameter("boolean").equals("male");
+        Boolean gender = request.getParameter("gender").equals("male");
         Date dob = Date.valueOf(request.getParameter("dob"));
         String email = request.getParameter("email");
-        response.getWriter().println(username + " " + firstname +" " + lastname + gender.toString() + dob + email);
+        UserDBContext db = new UserDBContext();
+        db.updateProfile(firstname, lastname, gender, dob, email, username);
+        response.sendRedirect("profile");
     }
 
     /**

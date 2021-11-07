@@ -52,7 +52,7 @@
                             <form action="updateProfile" method="POST">
                                 <input type="hidden" name="username" value="${requestScope.account.username}">
                                 <div class="question-title39">
-                                    <span class="form-description432">First name </span>
+                                    <span class="form-description432">First name</span>
                                     <input type="text" name="firstname" value="${requestScope.account.firstname}" class="question-ttile32">
                                 </div>
 
