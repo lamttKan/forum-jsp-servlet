@@ -31,28 +31,12 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="list">Home</a></li>
                             <li><a href="ask">Ask Question</a></li>
-                            <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                                     aria-haspopup="true" aria-expanded="false">Search<span class="caret"></span></a>
-                                <ul class="dropdown-menu animated zoomIn">
-                                    <li><a href="category.html">Category</a></li>
-                                    <li><a href="category.html">Tag</a></li>
-                                    <li><a href="category.html">User</a></li>
-                                    <li><a href="category.html">Advanced Search</a></li>
-                                </ul>
-                            </li>
-
+                            <li><a href="../searchByCategory">Search</a></li>
                             <li><a href="../user/profile">Profile</a></li>
-                            <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                                     aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
-                                <ul class="dropdown-menu animated zoomIn">
-                                    <li><a href="login">Login</a></li>
-                                    <li><a href=""> Change your profile</a></li>
-                                    <li><a href="#">Logout </a></li>
-                                </ul>
-                            </li>
+                            <li><a href="../logout">Login/Logout</a></li>
                         </ul>
                     </div>
-                    <!-- navbar-collapse -->
+                    <!-- nav bar-collapse -->
                 </div>
                 <!-- /.container-fluid -->
             </nav>
@@ -80,18 +64,18 @@
                                 <c:set var = "link" value = "${requestScope.post.attachment}"/>
 
                                 <c:choose>
-                                    <c:when test = "${fn:endsWith(link, '.jpg')}">
+                                    <c:when test = "${fn:endsWith(link, '.jpg') or fn:endsWith(link, '.png')}">
                                         <img width = 800 height="500" src="${pageContext.request.contextPath}/${requestScope.post.attachment}">
                                     </c:when>
 
-                                    <c:when test = "${fn:endsWith(link, '.mp4')}">
+                                    <c:when test = "${fn:endsWith(link, '.mp4') or fn:endsWith(link, '.mov')}">
                                         <video width="1000" height="500" controls>
                                             <source src="${pageContext.request.contextPath}/${requestScope.post.attachment}" type="video/mp4">
                                         </video>
                                     </c:when>
 
                                     <c:otherwise>
-
+                                        <p>This is a file.</p>
                                     </c:otherwise>
                                 </c:choose>
                                 <hr>

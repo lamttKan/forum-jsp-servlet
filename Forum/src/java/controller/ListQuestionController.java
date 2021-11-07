@@ -36,22 +36,51 @@ public class ListQuestionController extends HttpServlet {
             throws ServletException, IOException {
         QuestionDBContext db = new QuestionDBContext();
         ArrayList<Post> posts = db.getPosts();
+        for (Post post : posts) {
+            post.setAnswer(db.countAnswer(post.getId()));
+        }
         request.setAttribute("posts", posts);
         
+        
         ArrayList<Post> mostRespPosts = db.getPostsMostResponse();
+        for (Post post : mostRespPosts) {
+            post.setAnswer(db.countAnswer(post.getId()));
+        }
         request.setAttribute("mostRespPosts", mostRespPosts);
         
         ArrayList<Post> noAnsPosts = db.getPostsNoAns();
+        for (Post post : noAnsPosts) {
+            post.setAnswer(db.countAnswer(post.getId()));
+        }
         request.setAttribute("noAnsPosts", noAnsPosts);
         
         CategoryDBContext categoryDB = new CategoryDBContext();
         ArrayList<Category> categories =  categoryDB.getCategories();
         request.setAttribute("categories", categories);
         
-        Account account = (Account) request.getSession().getAttribute("account");
-        String username = account.getUsername();
-        ArrayList<Post> myposts = db.getPostByUser(username);
-        request.setAttribute("myposts", myposts);
+        
+        int pagesize = 5;
+        String page = request.getParameter("page");
+        if(page ==null || page.trim().length() ==0)
+            page = "1";
+        int pageindex = Integer.parseInt(page);
+        int totalrecords = db.getRowCount();
+        int totalpage = (totalrecords % pagesize ==0)?totalrecords / pagesize: 
+                (totalrecords / pagesize) + 1;
+        ArrayList<Post> postsList = db.getPostsWithPaging(pageindex, pagesize);
+        for (Post post : postsList) {
+            post.setAnswer(db.countAnswer(post.getId()));
+        }
+        request.setAttribute("postsList", postsList);
+        
+        
+        request.setAttribute("totalpage", totalpage);
+        request.setAttribute("pageindex", pageindex);
+        
+//        Account account = (Account) request.getSession().getAttribute("account");
+//        String username = account.getUsername();
+//        ArrayList<Post> myposts = db.getPostByUser(username);
+//        request.setAttribute("myposts", myposts);
         
         request.getRequestDispatcher("../view/display/home.jsp").forward(request, response);
         

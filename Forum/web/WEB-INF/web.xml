@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/user/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/questions/ask</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>Register</servlet-name>
         <servlet-class>controller.authentication.RegisterController</servlet-class>
@@ -44,6 +56,14 @@
         <servlet-name>AdvancedSearchController</servlet-name>
         <servlet-class>controller.AdvancedSearchController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.authentication.LogoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateProfile</servlet-name>
+        <servlet-class>controller.user.UpdateProfile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -81,12 +101,20 @@
         <url-pattern>/searchByCategory</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>SearchUserController</servlet-name>
-        <url-pattern>/user/searchUser</url-pattern>
+        <url-pattern>/searchUser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdvancedSearchController</servlet-name>
         <url-pattern>/questions/search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProfile</servlet-name>
+        <url-pattern>/user/updateProfile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -141,7 +141,7 @@ public class QuestionDBContext extends DBContext {
         return null;
     }
 
-    //update DANG BUG
+    //update 
     public void updatePost(Post p) {
         try {
             String sql = "UPDATE [Post]\n"
@@ -160,15 +160,38 @@ public class QuestionDBContext extends DBContext {
         }
     }
 
-    //delete DANG BUG
+    //delete 
     public void deletePost(int id) {
         try {
+            connection.setAutoCommit(false);
+
+            //delete comment
+            String sql_cmt = "DELETE FROM [Comment] WHERE post_id = ?";
+            PreparedStatement stm_cmt = connection.prepareStatement(sql_cmt);
+            stm_cmt.setInt(1, id);
+            stm_cmt.executeUpdate();
+
+            //delete post
             String sql = "DELETE [Post] WHERE id = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
             stm.executeUpdate();
+
+            //commit transaction
+            connection.commit();
         } catch (SQLException ex) {
             Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -346,7 +369,7 @@ public class QuestionDBContext extends DBContext {
                 params.put(paramIndex, param);
             }
             if (username != null && username.length() > 0) {
-                sql += "AND p.username like '%' + ? + '%'";
+                sql += " AND p.username like '%' + ? + '%'";
                 paramIndex++;
                 Object[] param = new Object[2];
                 param[0] = String.class.getName();
@@ -390,6 +413,58 @@ public class QuestionDBContext extends DBContext {
             Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return posts;
+    }
+
+    //list with paging
+    //list post
+    public ArrayList<Post> getPostsWithPaging(int pageindex, int pagesize) {
+        ArrayList<Post> posts = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM\n"
+                    + "(\n"
+                    + "SELECT ROW_NUMBER() OVER (ORDER BY p.id asc) as rownum, p.*, c.title as cname\n"
+                    + "FROM Post p\n"
+                    + "INNER JOIN Category c ON p.category_id = c.id\n"
+                    + ") t\n"
+                    + "WHERE >= (? - 1)*? + 1 AND rownum <= ? * ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, pageindex);
+            stm.setInt(2, pagesize);
+            stm.setInt(3, pageindex);
+            stm.setInt(4, pagesize);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Post p = new Post();
+                p.setId(rs.getInt("id"));
+                p.setTitle(rs.getString("title"));
+                p.setContent(rs.getString("content"));
+                p.setTime_created(rs.getDate("time_created"));
+                p.setUsername(rs.getString("username"));
+                Category c = new Category();
+                c.setId(rs.getInt("category_id"));
+                c.setTitle(rs.getString("cname"));
+                p.setCategory(c);
+                p.setAttachment(rs.getString("attachment"));
+                posts.add(p);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return posts;
+    }
+
+    public int getRowCount() {
+        try {
+            String sql = "SELECT Count(*) as Total  FROM Post";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
     }
 
 }

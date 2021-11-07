@@ -45,19 +45,22 @@ public class UpdateController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Account account = (Account) request.getSession().getAttribute("account");
+        int id = Integer.parseInt(request.getParameter("id"));
         String username = account.getUsername();
         String title = request.getParameter("title");
         String content = request.getParameter("content");
+        int cid = Integer.parseInt(request.getParameter("category_id"));
         Post p = new Post();
+        p.setId(id);
         p.setTitle(title);
         p.setContent(content);
         p.setUsername(username);
         Category c = new Category();
-        c.setId(Integer.parseInt(request.getParameter("category_id")));
+        c.setId(cid);
         p.setCategory(c);
-        String id = request.getParameter("id");
         QuestionDBContext db = new QuestionDBContext();
         db.updatePost(p);
+        response.sendRedirect("../user/profile?username="+username);
     }
 
     /**

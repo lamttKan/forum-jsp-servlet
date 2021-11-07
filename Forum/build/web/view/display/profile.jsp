@@ -12,6 +12,20 @@
         <link href="../css/bootstrap.css" rel="stylesheet" type="text/css">
         <link href="../css/style.css" rel="stylesheet" type="text/css">
         <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <script>
+            function doUpdate(id)
+            {
+                window.location.href = "../questions/update?id=" + id;
+            }
+            function doDelete(id)
+            {
+                var c = confirm("are you sure?");
+                if (c)
+                {
+                    window.location.href = "../questions/delete?id=" + id;
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -28,28 +42,12 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="../questions/list">Home</a></li>
                             <li><a href="../questions/ask">Ask Question</a></li>
-                            <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                                     aria-haspopup="true" aria-expanded="false">Search<span class="caret"></span></a>
-                                <ul class="dropdown-menu animated zoomIn">
-                                    <li><a href="category.html">Category</a></li>
-                                    <li><a href="category.html">Tag</a></li>
-                                    <li><a href="category.html">User</a></li>
-                                    <li><a href="category.html">Advanced Search</a></li>
-                                </ul>
-                            </li>
-
+                            <li><a href="../searchByCategory">Search</a></li>
                             <li><a href="profile">Profile</a></li>
-                            <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                                     aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
-                                <ul class="dropdown-menu animated zoomIn">
-                                    <li><a href="logIn.html">Login</a></li>
-                                    <li><a href=""> Change your profile</a></li>
-                                    <li><a href="#">Logout </a></li>
-                                </ul>
-                            </li>
+                            <li><a href="../logout">Login/Logout</a></li>
                         </ul>
                     </div>
-                    <!-- /.navbar-collapse -->
+                    <!-- nav bar-collapse -->
                 </div>
                 <!-- /.container-fluid -->
             </nav>
@@ -78,6 +76,8 @@
                                     <span class="form-description43">Email: ${requestScope.user.email}</span>
                                 </div> <br>
                                 <br>
+                                <hr>
+                                <a href="updateProfile?username=${requestScope.username}">Change profile</a>
                             </div>
 
 
@@ -91,20 +91,25 @@
                                 <c:forEach items="${requestScope.posts}" var="p">
                                     <div class="question-type2033">
                                         <div class="row">
-                                            <div class="col-md-11">
+                                            <div class="col-md-10">
                                                 <div class="right-description893">
                                                     <div id="que-hedder2983">
-                                                        <h3><a href="" target="_blank">${p.title}</a></h3>
+                                                        <h3><a href="../questions/detail?id=${p.id}" target="_blank">${p.title}</a></h3>
                                                     </div>
                                                     <hr>
                                                     <div class="ques-icon-info3293"> 
                                                         <a href="#"><i class="fa fa-user" aria-hidden="true"> ${p.username}</i></a> 
                                                         <a href="#"><i class="fa fa-clock-o" aria-hidden="true">${p.time_created}</i></a>
-                                                        <a href="#"><i class="fa fa-comment" aria-hidden="true"> 5 answer</i></a>
-                                                        <a href="#"><i class="fa fa-user-circle-o" aria-hidden="true"> 70 view</i> </a>
+                                                        <a href="#"><i class="fa fa-comment" aria-hidden="true"> ${p.answer}</i></a>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-2">
+                                                <div class="ques-type302">
+                                                    <input type="button" class="q-type238 button-ques2973" onclick="doUpdate(${p.id});" value="Change your post"/>
+                                                    <input type="button" class="q-type23 button-ques2973" onclick="doDelete(${p.id});" value="Delete your post"/>
+                                                </div>
+                                            </div>            
                                         </div>
                                     </div>                   
                                 </c:forEach> 

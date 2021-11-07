@@ -13,20 +13,7 @@
         <link href="../css/bootstrap.css" rel="stylesheet" type="text/css">
         <link href="../css/style.css" rel="stylesheet" type="text/css">
         <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <script>
-            function doUpdate(id)
-            {
-                window.location.href = "update?id=" + id;
-            }
-            function doDelete(id)
-            {
-                var c = confirm("are you sure?");
-                if (c)
-                {
-                    window.location.href = "delete?id=" + id;
-                }
-            }
-        </script>
+        <script src="js/pagger.js" type="text/javascript"></script>
     </head>
 
     <body>
@@ -44,25 +31,9 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="list">Home</a></li>
                             <li><a href="ask">Ask Question</a></li>
-                            <li><a href="ask">Search</a></li>
-                            <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                                     aria-haspopup="true" aria-expanded="false">Search<span class="caret"></span></a>
-                                <ul class="dropdown-menu animated zoomIn">
-                                    <li><a href="category.html">Category</a></li>
-                                    <li><a href="category.html">Tag</a></li>
-                                    <li><a href="category.html">User</a></li>
-                                    <li><a href="category.html">Advanced Search</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="../searchByCategory">Search</a></li>
                             <li><a href="../user/profile">Profile</a></li>
-                            <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                                     aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
-                                <ul class="dropdown-menu animated zoomIn">
-                                    <li><a href="logIn.html">Login</a></li>
-                                    <li><a href=""> Change your profile</a></li>
-                                    <li><a href="#">Logout </a></li>
-                                </ul>
-                            </li>
+                            <li><a href="../logout">Login/Logout</a></li>
                         </ul>
                     </div>
                     <!-- nav bar-collapse -->
@@ -77,14 +48,7 @@
             <div class="container">
                 <div class="welcome-demop102 text-center">
                     <h2>Welcome to Pallas forum, Ask good question bring awesome knowledge !!!</h2>
-                    <div class="form-style8292">
-                        <div class="input-group"> <span class="input-group-addon"><i class="fa fa-pencil-square"
-                                                                                     aria-hidden="true"></i></span>
-                            <input type="text" class="form-control form-control8392"
-                                   placeholder="Ask any question and you be sure find your answer ?"> <span
-                                   class="input-group-addon"><a href="#">Ask Now</a></span>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </section>
@@ -103,7 +67,7 @@
                             <input id="tab4" type="radio" name="tabs">
                             <label for="tab4">No Answer</label>
                             <input id="tab5" type="radio" name="tabs">
-                            <label for="tab5">Your Post</label>
+<!--                            <label for="tab5">Your Post</label>-->
 
 
 
@@ -122,7 +86,7 @@
                                                         <a href="../user/profile?username=${p.username}"><i class="fa fa-user" aria-hidden="true"> ${p.username}</i></a> 
                                                         <i class="fa fa-clock-o" aria-hidden="true">${p.time_created}</i>
                                                         <i class="fa fa-tag" aria-hidden="true">${p.category.title}</i>
-                                                        <i class="fa fa-comment" aria-hidden="true"> 5 answer</i>
+                                                        <i class="fa fa-comment" aria-hidden="true">${p.answer}</i>
                                                         <!--                                            <i class="fa fa-user-circle-o" aria-hidden="true"> 70 view</i> -->
                                                     </div>
                                                 </div>
@@ -168,7 +132,7 @@
                                                         <a href="../user/profile?username=${p.username}"><i class="fa fa-user" aria-hidden="true"> ${p.username}</i></a> 
                                                         <i class="fa fa-clock-o" aria-hidden="true">${p.time_created}</i>
                                                         <i class="fa fa-tag" aria-hidden="true">${p.category.title}</i>
-                                                        <i class="fa fa-comment" aria-hidden="true"> 5 answer</i>
+                                                        <i class="fa fa-comment" aria-hidden="true"> ${p.answer}</i>
                                                         <!--                                            <i class="fa fa-user-circle-o" aria-hidden="true"> 70 view</i> -->
                                                     </div>
                                                 </div>
@@ -216,7 +180,7 @@
                                                         <a href="../user/profile?username=${p.username}"><i class="fa fa-user" aria-hidden="true"> ${p.username}</i></a> 
                                                         <i class="fa fa-clock-o" aria-hidden="true">${p.time_created}</i>
                                                         <i class="fa fa-tag" aria-hidden="true">${p.category.title}</i>
-                                                        <i class="fa fa-comment" aria-hidden="true"> 5 answer</i>
+                                                        <i class="fa fa-comment" aria-hidden="true"> ${p.answer}</i>
                                                         <!--                                            <i class="fa fa-user-circle-o" aria-hidden="true"> 70 view</i> -->
                                                     </div>
                                                 </div>
@@ -250,60 +214,29 @@
 
 
                             <section id="content5">
-                                <!--Recent Question Content Section -->
-                                <div class="question-type2033">
-                                    <div class="row">
-                                            <c:forEach items="${requestScope.myposts}" var="p">
-                                                <div class="question-type2033 col-md-10">
-                                                    <div class="row">
-                                                        <div class="col-md-11">
-                                                            <div class="right-description893">
-                                                                <div id="que-hedder2983">
-                                                                    <h3><a href="" target="_blank">${p.title}</a></h3>
-                                                                </div>
-                                                                <hr>
-                                                                <div class="ques-icon-info3293"> 
-                                                                    <a href="#"><i class="fa fa-user" aria-hidden="true"> ${p.username}</i></a> 
-                                                                    <a href="#"><i class="fa fa-clock-o" aria-hidden="true">${p.time_created}</i></a>
-                                                                    <a href="#"><i class="fa fa-comment" aria-hidden="true"> 5 answer</i></a>
-                                                                    <a href="#"><i class="fa fa-user-circle-o" aria-hidden="true"> 70 view</i> </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                <c:forEach items="${requestScope.posts}" var="p">
+                                    <div class="question-type2033">
+                                        <div class="row">
+                                            <div class="col-md-11">
+                                                <div class="right-description893">
+                                                    <div id="que-hedder2983">
+                                                        <h3><a href="detail?id=${p.id}" target="_blank">${p.title}</a></h3>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="ques-icon-info3293"> 
+                                                        <a href="../user/profile?username=${p.username}"><i class="fa fa-user" aria-hidden="true"> ${p.username}</i></a> 
+                                                        <i class="fa fa-clock-o" aria-hidden="true">${p.time_created}</i>
+                                                        <i class="fa fa-tag" aria-hidden="true">${p.category.title}</i>
+                                                        <i class="fa fa-comment" aria-hidden="true">${p.answer}</i>
+                                                        <!--                                            <i class="fa fa-user-circle-o" aria-hidden="true"> 70 view</i> -->
                                                     </div>
                                                 </div>
+                                            </div>
 
-                                                <div class="col-md-2">
-                                                    <div class="ques-type302">
-                                                        <input type="button" class="q-type238 button-ques2973" onclick="doUpdate(${p.id});" value="Change your post"/>
-                                                        <input type="button" class="q-type23 button-ques2973" onclick="doDelete(${p.id});" value="Delete your post"/>
-                                                    </div>
-                                                </div>                   
-                                            </c:forEach>
-
-                                    </div>
-                                </div>
-
-                                <!--End of content-5-->
-                                <nav aria-label="Page navigation">
-                                    <ul class="pagination">
-                                        <li>
-                                            <a href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li>
-                                            <a href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                        </div>
+                                    </div>                   
+                                </c:forEach>  
+                                <div id="paggerbot" class="pagger"></div>
                             </section>
 
                         </div>
@@ -344,6 +277,9 @@
                 </div>
             </div>
         </section>
+        <script>
+            renderPagger('paggerbot',${requestScope.pageindex}, ${requestScope.totalpage}, 2);
+        </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="js/jquery-3.1.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>

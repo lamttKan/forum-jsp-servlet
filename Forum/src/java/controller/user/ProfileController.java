@@ -37,8 +37,10 @@ public class ProfileController extends HttpServlet {
         Account account = (Account) request.getSession().getAttribute("account");
         String my_username = account.getUsername();
         String username = request.getParameter("username");
+        int flag = 0;
         if(username == null || username.trim().length() ==0){
             username = my_username;
+            flag++;
         }
         UserDBContext Userdb = new UserDBContext();
         Account user = Userdb.getUser(username);
@@ -46,9 +48,18 @@ public class ProfileController extends HttpServlet {
                 
         QuestionDBContext db = new QuestionDBContext();
         ArrayList<Post> posts = db.getPostByUser(username);
+        for (Post post : posts) {
+            post.setAnswer(db.countAnswer(post.getId()));
+        }
         request.setAttribute("posts", posts);
+        request.setAttribute("username", username);
+        if(flag == 0){
+            request.getRequestDispatcher("../view/display/profile2.jsp").forward(request, response);
+        }else{
+            request.getRequestDispatcher("../view/display/profile.jsp").forward(request, response);
+        }
                 
-        request.getRequestDispatcher("../view/display/profile.jsp").forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

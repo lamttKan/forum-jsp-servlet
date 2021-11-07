@@ -20,44 +20,28 @@
 
 <body>
     <div class="top-menu-bottom932">
-        <nav class="navbar navbar-default">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <h1 style="height: max-content; color: #fd6372; font-family: Brush Script MT;">Pallas Forum</h1>
+            <nav class="navbar navbar-default">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <h1 style="height: max-content; color: #fd6372; font-family: Brush Script MT;">Pallas Forum</h1>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav"> </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="list">Home</a></li>
+                            <li><a href="ask">Ask Question</a></li>
+                            <li><a href="../searchByCategory">Search</a></li>
+                            <li><a href="../user/profile">Profile</a></li>
+                            <li><a href="../logout">Login/Logout</a></li>
+                        </ul>
+                    </div>
+                    <!-- nav bar-collapse -->
                 </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav"> </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="list">Home</a></li>
-                        <li><a href="ask">Ask Question</a></li>
-                        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                                 aria-haspopup="true" aria-expanded="false">Search<span class="caret"></span></a>
-                            <ul class="dropdown-menu animated zoomIn">
-                                <li><a href="category.html">Category</a></li>
-                                <li><a href="category.html">Tag</a></li>
-                                <li><a href="category.html">User</a></li>
-                                <li><a href="category.html">Advanced Search</a></li>
-                            </ul>
-                        </li>
-
-                        <li><a href="../user/profile">Profile</a></li>
-                        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                                 aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
-                            <ul class="dropdown-menu animated zoomIn">
-                                <li><a href="login">Login</a></li>
-                                <li><a href=""> Change your profile</a></li>
-                                <li><a href="#">Logout </a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <!-- navbar-collapse -->
-            </div>
-            <!-- /.container-fluid -->
-        </nav>
-    </div>
+                <!-- /.container-fluid -->
+            </nav>
+        </div>
 
     <section class="main-content920 ">
         <div class="container">

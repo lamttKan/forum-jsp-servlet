@@ -33,6 +33,7 @@ public class UserDBContext extends DBContext {
                 u.setGender(rs.getBoolean("gender"));
                 u.setDob(rs.getDate("dob"));
                 u.setEmail(rs.getString("email"));
+                u.setUsername(rs.getString("username"));
                 users.add(u);
             }
         } catch (SQLException ex) {
@@ -55,6 +56,7 @@ public class UserDBContext extends DBContext {
                 u.setGender(rs.getBoolean("gender"));
                 u.setDob(rs.getDate("dob"));
                 u.setEmail(rs.getString("email"));
+                u.setUsername(rs.getString("username"));
                 return u;
             }
         } catch (SQLException ex) {
@@ -63,7 +65,7 @@ public class UserDBContext extends DBContext {
         return null;
     }
 
-    //update profile (chua dung)
+    //update profile 
     public void updateProfile(Account a) {
         try {
             String sql = "UPDATE [Account]\n"

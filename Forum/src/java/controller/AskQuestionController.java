@@ -89,7 +89,7 @@ public class AskQuestionController extends BaseRequireAuthenController {
 
         QuestionDBContext db = new QuestionDBContext();
         db.insert(p);
-
+        response.sendRedirect("list");
     }
 
     /**
